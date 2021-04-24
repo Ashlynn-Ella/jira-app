@@ -1,6 +1,6 @@
 import styled from "@emotion/styled"
 import { Button, Dropdown, Menu } from "antd"
-import React, { useState } from "react"
+import React from "react"
 import { ButtonNoPadding, Row } from "./component/lib"
 import { useAuth } from "./context/auth-context"
 import { ProjectListScreen } from "./screens/project-list"

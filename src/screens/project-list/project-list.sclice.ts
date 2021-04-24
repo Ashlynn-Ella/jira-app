@@ -20,6 +20,7 @@ export const projectListSlice = createSlice({
 })
 
 export const projectListActions = projectListSlice.actions
+console.log(projectListActions)
 
 export const selectProjectMoadalOpen = (state: RootState) => state.projectList.projectModalOpen
 
