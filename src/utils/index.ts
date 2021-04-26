@@ -55,6 +55,9 @@ export const useDocumentTtitle = (title: string, keepOnUnmount = true) => {
 //跳转到首页
 export const resetRoute = () => window.location.href = window.location.origin
 
+//传入一个对象和键集合，返回一个数组
+
+//完善组件卸载之后
 export const useMountedRef = () => {
   const mountedRef = useRef(false)
   useEffect(() => {

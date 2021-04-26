@@ -45,9 +45,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 export const useAuth = () => {
   const dispatch: (...args: unknown[]) => Promise<User> = useDispatch()
   const user = useSelector(authStore.selectUser)
-  const login = useCallback((form: AuthForm) => dispatch(authStore.login(form)),[dispatch])
-  const logout = useCallback(() => dispatch(authStore.logout()),[dispatch])
-  const register = useCallback((form: AuthForm) => dispatch(authStore.register),[dispatch])
+  const login = useCallback((form: AuthForm) => dispatch(authStore.login(form)), [dispatch])
+  const logout = useCallback(() => dispatch(authStore.logout()), [dispatch])
+  const register = useCallback((form: AuthForm) => dispatch(authStore.register(form)), [dispatch])
   return {
     login,
     logout,
