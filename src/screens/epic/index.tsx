@@ -54,11 +54,10 @@ export const EpicScreen = () => {
               return <Link key={task.id} to={`/projects/${currentProject?.id}/kanban?editingTaskId=${task.id}`}>{task.name}</Link>
             })
             }
-          </div>
-          <CreateEpic visible={createEpicOpen} onClose={() => setCreateEpicOpen(false)} />
+          </div>         
         </List.Item>
       }} />
-
+      <CreateEpic visible={createEpicOpen} onClose={() => setCreateEpicOpen(false)} />
     </ScreenContainer>
   )
 }

@@ -30,8 +30,8 @@ export const CreateEpic = (props: Pick<DrawerProps, 'visible'> & { onClose: () =
         <h1>创建项目任务组</h1>
         <ErrorBox error={error} />
         <Form form={form} layout={'vertical'} onFinish={onFinish} style={{ width: '40rem' }}>
-          <Form.Item label={'名称'} name={'name'} rules={[{ required: true, message: '请输入项目名称' }]}>
-            <Input placeholder="请输入项目名称" />
+          <Form.Item label={'名称'} name={'name'} rules={[{ required: true, message: '请输入任务组名称' }]}>
+            <Input placeholder="请输入任务组名称" />
           </Form.Item>
           <Form.Item style={{ textAlign: "right" }}>
             <Button loading={isLoading} type={'primary'} htmlType={'submit'}>提交</Button>
