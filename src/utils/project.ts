@@ -1,45 +1,38 @@
-import { useCallback, useEffect } from "react";
-import { clearObject } from ".";
+
 import { Project } from "../screens/project-list/list";
 import { useHttp } from "./http";
-import { useAsync } from "./use-async";
+import { useQuery, useMutation, QueryKey } from 'react-query'
+import { useAddConfig, useDeleteConfig, useEditConfig } from "./use-optimistic-option";
 
-export const useProject = (param?: Partial<Project>) => {
-  const { run, ...result } = useAsync<Project[]>()
+export const useProjects = (param?: Partial<Project>) => {
   const client = useHttp()
-  const fetchConfig = useCallback(() => client('projects', { data: clearObject(param || {}) }),[param,client])
-  useEffect(() => {
-    run(fetchConfig(), { retry: fetchConfig })
-  }, [param,fetchConfig,run]) //这里得debounce是useState中的
-  return result
+  return useQuery<Project[]>(['projects', param], () => client('projects', { data: param }))
 }
 
-export const useEditProject = () => {
-  const { run, ...result } = useAsync()
+export const useEditProject = (queryKey: QueryKey) => {
   const client = useHttp()
-  const mutate = (params: Partial<Project>) => {
-    return run(client(`projects/${params.id}`, {
-      data: params,
-      method: 'PATCH'
-    }))
-  }
-  return {
-    mutate,
-    ...result
-  }
+  return useMutation((params: Partial<Project>) => client(`projects/${params.id}`, {
+    data: params,
+    method: 'PATCH'
+  }), useEditConfig(queryKey))
 }
 
-export const useAddProject = () => {
-  const { run, ...result } = useAsync()
+export const useAddProject = (queryKey: QueryKey) => {
   const client = useHttp()
-  const mutate = (params: Partial<Project>) => {
-    return run(client(`projects/${params.id}`, {
-      data: params,
-      method: 'POST'
-    }))
-  }
-  return {
-    mutate,
-    ...result
-  }
+  return useMutation((params: Partial<Project>) => client(`projects`, {
+    data: params,
+    method: 'POST'
+  }), useAddConfig(queryKey))
+}
+
+export const useDeleteProject = (queryKey: QueryKey) => {
+  const client = useHttp()
+  return useMutation(({ id }: { id: number }) => client(`projects/${id}`, {
+    method: 'DELETE'
+  }), useDeleteConfig(queryKey))
+}
+
+export const useProject = (id?: number) => {
+  const client = useHttp()
+  return useQuery<Project>(['project', { id }], () => client(`projects/${id}`), { enabled: !!id })
 }

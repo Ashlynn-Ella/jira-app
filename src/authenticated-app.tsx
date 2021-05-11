@@ -11,16 +11,19 @@ import { ProjectScreen } from "./screens/project"
 import { resetRoute } from "./utils"
 import { ProjectPopover } from "./component/project-popover"
 import { ProjectModal } from "./screens/project-list/project-modal"
+import { UserPopover } from "component/use-popover"
 
 export const AuthenticatedApp = () => {
   return <Container>
     <Router>
       <PageHeader />
-      <Routes>
-        <Route path={"/projects"} element={<ProjectListScreen />}></Route>
-        <Route path={"/projects/:projectId/*"} element={<ProjectScreen />}></Route>
-        <Navigate to={'/projects'} />
-      </Routes>
+      <Main>
+        <Routes>
+          <Route path={"/projects"} element={<ProjectListScreen />}></Route>
+          <Route path={"/projects/:projectId/*"} element={<ProjectScreen />}></Route>
+          <Navigate to={'/projects'} />
+        </Routes>
+      </Main>
       <ProjectModal />
     </Router>
   </Container>
@@ -35,7 +38,7 @@ const PageHeader = () => {
           <SoftwareLogo width={'18rem'} color={'rgb(38,132,255)'} />
         </Button>
         <ProjectPopover />
-        <span>用户</span>
+        <UserPopover />
       </HeaderLeft>
       <HeaderRight>
         <Dropdown overlay={
@@ -51,11 +54,16 @@ const PageHeader = () => {
 const Container = styled.div`
   display:grid;
   grid-template-rows:6rem 1fr;
+  height:100vh;
 `
 const Header = styled(Row)`
   padding:3.2rem;
   box-shadow: 0 0 5px 0 rgba(0,0,0,0.1);
-  z-index:1;
+  z-index:9;
 `
 const HeaderLeft = styled(Row)``
 const HeaderRight = styled.div``
+const Main = styled.main`
+display:flex;
+overflow:hidden;
+`

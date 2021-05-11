@@ -7,7 +7,7 @@ export const isVoid = (value: unknown) => value === undefined || value === null 
 // 如果用Object，函数等也是对象，用键值对，锁住键值对的格式
 export const clearObject = (object: { [key: string]: unknown }) => {
   const result = { ...object }
-  Object.keys(object).forEach((key: any) => {
+  Object.keys(result).forEach((key: any) => {
     let value = result[key]
     if (isFaily(value)) {
       if (isVoid(value)) {

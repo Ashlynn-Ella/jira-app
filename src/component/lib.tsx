@@ -33,10 +33,27 @@ export const PageLoading = () => {
 export const PageCallback = ({ error }: { error: Error | null }) => {
   return <PageFull>
     <DevTools />
-    <Typography.Text type={'danger'}>{error?.message}</Typography.Text>
+    <ErrorBox error={error} />
   </PageFull>
 }
+const isError = (value: any): value is Error => value?.message
+
+export const ErrorBox = ({ error }: { error: unknown }) => {
+  if (isError(error)) {
+    return <Typography.Text type={'danger'}>{error?.message}</Typography.Text>
+  }
+  return null
+}
+
 
 export const ButtonNoPadding = styled(Button)`
 padding:0;
+`
+
+export const ScreenContainer = styled.div`
+display:flex;
+flex-direction:column;
+padding:3.2rem;
+width:100%;
+overflow:hidden;
 `

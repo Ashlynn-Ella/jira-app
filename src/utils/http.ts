@@ -1,5 +1,4 @@
 import qs from 'qs'
-import { useCallback } from 'react'
 import * as auth from '../auth-provider'
 import { useAuth } from '../context/auth-context'
 
@@ -41,5 +40,5 @@ export const http = async (endpoint: string, { data, token, headers, ...customCo
 //将user中的token拿出来
 export const useHttp = () => {
   const { user } = useAuth()
-  return useCallback((...[endponit, config]: Parameters<typeof http>) => http(endponit, { ...config, token: user?.token }), [user?.token])
+  return (...[endponit, config]: Parameters<typeof http>) => http(endponit, { ...config, token: user?.token })
 }

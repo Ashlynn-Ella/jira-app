@@ -2,11 +2,11 @@ import styled from "@emotion/styled"
 import { Popover, Typography, List, Divider } from "antd"
 import React from "react"
 import { useProjectModal } from "utils/url"
-import { useProject } from "../utils/project"
+import { useProjects } from "../utils/project"
 import { ButtonNoPadding } from "./lib"
 
 export const ProjectPopover = () => {
-  const { data: projects } = useProject()
+  const { data: projects,refetch } = useProjects()
   const { open } = useProjectModal()
   const pinProjects = projects?.filter(project => project.pin)
   const content = (
@@ -24,7 +24,7 @@ export const ProjectPopover = () => {
     </ContentContainer>
   )
   return (
-    <Popover placement={'bottom'} content={content}>
+    <Popover onVisibleChange={()=>refetch()} placement={'bottom'} content={content}>
       <span>项目</span>
     </Popover>
   )

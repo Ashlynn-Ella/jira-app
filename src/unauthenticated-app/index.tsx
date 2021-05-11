@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Button, Card, Divider, Typography } from "antd"
+import { Button, Card, Divider } from "antd"
 import React, { useState } from "react"
 import { Login } from "./login"
 import { Register } from "./register"
@@ -7,16 +7,17 @@ import styled from '@emotion/styled'
 import Logo from '../assets/logo.svg'
 import Left from '../assets/left.svg'
 import Right from '../assets/right.svg'
+import { ErrorBox } from "component/lib"
 
 export const UnauthenticatedApp = () => {
   const [isRegister, setRegister] = useState(false)
-  const [error,setError] = useState<Error | null>(null)
+  const [error, setError] = useState<Error | null>(null)
   return <Container>
     <Header />
     <Background />
     <ShowCart>
       <Title>{isRegister ? '请注册' : '请登录'}</Title>
-      {error?<Typography.Text type={'danger'}>{error.message}</Typography.Text> : null}
+      <ErrorBox error={error} />
       {isRegister ? <Register onError={setError} /> : <Login onError={setError} />}
       <Divider />
       <Button type={'link'} onClick={() => setRegister(!isRegister)}>
